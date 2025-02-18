@@ -1,1 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Bigshot+One&display=swap');
 @import "tailwindcss";
+
+@theme {
+
+    --font-title: "Bigshot One", sans-serif;
+    --font-button: "Roboto", sans-serif;
+
+    --color-bglight: #104A7E;
+    --color-bgdark: #0F0E17;
+
+    --color-accept: #096C93;
+    --color-accept-light: #3389a3;
+    --color-accept-dark: #065678;
+
+    --color-decline: #863C47;
+    --color-decline-light: #d25e6f;
+    --color-decline-dark: #6e2c33;
+
+    --color-unique: #3FA877;
+    --color-unique-light: #6fcc9a;
+    --color-unique-dark: #358e62;
+}
+
+.input-no-spinner::-webkit-outer-spin-button,
+.input-no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-no-spinner[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.text-gray-disabled {
+    color: rgb(107, 114, 128);
+}
+
+/* TITLEBAR !! */
+
+.titlebar {
+    height: 30px;
+    background: #329ea3;
+    user-select: none;
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.titlebar-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.titlebar-button:hover {
+    background: #5bbec3;
+}

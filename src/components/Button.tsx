@@ -9,12 +9,12 @@ interface ButtonProps {
 
 export default function Button({ onClick, disabled, text, textColor, bgHover, bg }: ButtonProps) {
   return (
-    <div className="relative inline-block w-[80vw] h-[60px] m-8">
+    <div className="relative inline-block w-[80vw] h-[60px]">
       {/* Gradient border container */}
       <button
         onClick={onClick}
         disabled={disabled}
-        className={`hover:cursor-pointer border-2 relative z-10 w-full h-full rounded-xl ${bg ? bg : 'bg-white'} ${textColor ? textColor : 'text-black'} font-black disabled:opacity-50 transition-all duration-200 hover:scale-105 ${bgHover ? bgHover : 'hover:bg-gray-400 hover:text-white'} active:bg-gray-200 active:scale-95`}
+        className={`hover:cursor-pointer border-white relative z-10 w-full h-full rounded-xl ${bg ? bg : 'bg-white'} ${textColor ? textColor : 'text-black'} font-semibold disabled:opacity-50 transition-all duration-200 hover:scale-105 ${bgHover ? bgHover : 'hover:bg-gray-400 hover:text-white'} active:bg-gray-200 active:scale-95`}
       >
         {text}
       </button>
