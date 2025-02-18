@@ -131,8 +131,8 @@ export default function Settings(): JSX.Element {
                 </div>
 
             </div>
-            <div className="flex justify-center w-screen items-center" >
-                <Button onClick={saveStore} text='Save' bg="bg-unique" bgHover='hover:bg-unique-light' />
+            <div className="flex justify-center w-screen items-center " >
+                <Button onClick={saveStore} text='Save' bg="bg-unique" bgHover='hover:bg-unique-light text-2xl' />
             </div>
         </div>
 
