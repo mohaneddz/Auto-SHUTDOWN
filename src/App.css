@@ -20,6 +20,10 @@
     --color-unique: #3FA877;
     --color-unique-light: #6fcc9a;
     --color-unique-dark: #358e62;
+
+    --color-neutral: #f5f5f5;
+    --color-neutral-light: #e0e0e0;
+    --color-neutral-dark: #9e9e9e;
 }
 
 .input-no-spinner::-webkit-outer-spin-button,
@@ -41,7 +45,7 @@
 
 .titlebar {
     height: 30px;
-    background: #329ea3;
+    background: #329da300;
     user-select: none;
     display: flex;
     justify-content: flex-end;
@@ -64,4 +68,43 @@
 
 .titlebar-button:hover {
     background: #5bbec3;
+}
+.glow{
+    text-shadow: 0 0 5px #3389a3, 0 0 15px #3389a3, 0 0 40px #3389a3, 0 0 60px #3389a3, 0 0 80px #3389a3;
+    transition-duration: 1;
+
+}
+
+
+body {
+    background-color: color-mix(in oklab, var(--color-slate-800)
+            /* oklch(0.279 0.041 260.031) = #1d293d */
+            70%, transparent);
+
+    backdrop-filter: blur(20px);
+}
+
+.titlebar {
+    height: 30px;
+    /* background: #314057; */
+    user-select: none;
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.titlebar-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.titlebar-button:hover {
 }

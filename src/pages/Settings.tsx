@@ -41,12 +41,17 @@ export default function Settings(): JSX.Element {
     }, [setViewScale]);
 
     const saveStore = useCallback(async () => {
+
+        console.log(store);
+
         await store.set('viewScale', { viewScale });
         await store.set('autoStart', { autoStart });
         await store.set('systemTray', { systemTray });
         await store.set('audio', { audio });
         await store.set('globalShortcuts', { globalShortcuts });
+
         console.log('Settings Saved:', await store.get('viewScale'), await store.get('autoStart'), await store.get('systemTray'), await store.get('audio'), await store.get('globalShortcuts'));
+
     }, [viewScale, autoStart, systemTray, audio, globalShortcuts]);
 
     useEffect(() => {

@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import Settings from './pages/Settings';
 import Mode from './pages/Mode';
 
+import Titlebar from './components/Titlebar';
+
 // import { invoke } from "@tauri-apps/api/core";
 // import { listen } from '@tauri-apps/api/event';
 
@@ -15,8 +17,8 @@ function App() {
   // };
 
   return (
-    <div className="App h-screen w-screen flex justify-center items-center flex-col bg-gradient-to-b from-bglight to-bgdark/100 text-white overflow-x-hidden">
-
+    <div className="App h-screen w-screen flex justify-center items-center flex-col bg-gradient-to-b from-bglight/50 to-bgdark/50 text-white overflow-x-hidden">
+      <Titlebar appWindow={undefined} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/settings" element={<Settings />} />

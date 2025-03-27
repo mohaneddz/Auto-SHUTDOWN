@@ -88,7 +88,7 @@ export default function Modes(): JSX.Element {
             <button onClick={goHome}>
                 <IconArrowBackUp
                     size={48}
-                    className="top-8 left-8 absolute w-16 h-16 text-bglight bg-white rounded-full hovere:scale-105 active:scale-95 transition-transform duration-200"
+                    className="top-8 left-8 absolute w-16 h-16 text-bglight bg-white rounded-full hover:scale-105 active:scale-95 transition-transform duration-200"
                 />
             </button>
 

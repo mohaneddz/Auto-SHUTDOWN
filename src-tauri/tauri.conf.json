@@ -14,7 +14,9 @@
 			{
 				"title": "auto-turn-off",
 				"width": 800,
-				"height": 1080
+				"height": 1080,
+				"decorations": false,
+				"transparent": true
 			}
 		],
 		"security": {

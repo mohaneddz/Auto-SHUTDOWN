@@ -6,6 +6,7 @@
 	"permissions": [
 		"core:default",
 		"opener:default",
+		
 		"store:allow-load",
 		"store:allow-save",
 		"store:default",
