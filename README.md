@@ -2,6 +2,8 @@
 
 Auto-Shutdown is a sleek, modern Tauri application built with React and Typescript. It provides powerful and flexible system shutdown scheduling options in a lightweight, cross-platform package. Get precise control over when your computer powers down, restarts, or sleeps, all from an intuitive interface.
 
+# <img src="screenshots/showcase.png" alt="Auto-Shutdown Logo" width="100%" style="vertical-align: middle; margin-right: 10px;">
+
 ## Core Features ⚡
 
 *   **Native Power:** Leverages low level system commands via Rust direct, reliable system shutdown.
