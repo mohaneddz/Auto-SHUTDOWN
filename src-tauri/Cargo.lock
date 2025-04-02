@@ -246,7 +246,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "auto-turn-off"
+name = "auto-shutdown"
 version = "0.1.0"
 dependencies = [
  "serde",
