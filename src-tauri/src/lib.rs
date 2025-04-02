@@ -1,11 +1,23 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+// not this file smh
+
+use user_idle_time::get_idle_time;
+use tauri::command;
+
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
+}   
+
+#[command]
+fn get_system_idle_time() -> Result<u64, String> {
+  match get_idle_time() {
+    Ok(duration) => Ok(duration.as_secs()),
+    Err(e) => Err(e.to_string()),
+  }
 }
 
 #[tauri::command]
-fn shutdown_system() -> Result<(), String> {
+fn shutdown() -> Result<(), String> {
     #[cfg(target_os = "windows")]
     {
         use std::process::Command;
@@ -25,7 +37,7 @@ fn shutdown_system() -> Result<(), String> {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet,shutdown_system])
+        .invoke_handler(tauri::generate_handler![get_system_idle_time, greet, shutdown])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

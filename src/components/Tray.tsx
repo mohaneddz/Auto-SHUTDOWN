@@ -42,4 +42,5 @@ const options = {
     },
 };
 
-const tray = await TrayIcon.new(options);
+// @ts-ignore
+await TrayIcon.new(options);

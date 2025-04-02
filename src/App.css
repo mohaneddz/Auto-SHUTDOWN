@@ -6,6 +6,7 @@
     --font-title: "Bigshot One", sans-serif;
     --font-button: "Roboto", sans-serif;
 
+    --color-bglighter: #5974928e;
     --color-bglight: #104A7E;
     --color-bgdark: #0F0E17;
 
@@ -67,7 +68,7 @@
 }
 
 .titlebar-button:hover {
-    background: #5bbec3;
+    background: #2c67a73d;
 }
 .glow{
     text-shadow: 0 0 5px #3389a3, 0 0 15px #3389a3, 0 0 40px #3389a3, 0 0 60px #3389a3, 0 0 80px #3389a3;
@@ -106,5 +107,17 @@ body {
     -webkit-user-select: none;
 }
 
-.titlebar-button:hover {
+.input-no-spinner::-webkit-outer-spin-button,
+.input-no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-no-spinner {
+  -moz-appearance: textfield;
+}
+
+.text-gray-disabled {
+    color: #6b7280;
+    cursor: not-allowed;
 }
