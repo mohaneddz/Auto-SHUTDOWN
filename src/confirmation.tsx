@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from 'react'; // Import useRef
 import { invoke } from "@tauri-apps/api/core";
 import { initStore } from './lib/store'; // Assuming this correctly initializes your store
 
-import startSoundPath from "/sound start.mp3"; // Use default import for paths
+import startSoundPath from "/sound start.mp3"; 
 import tickSoundPath from "/sound tick.mp3"
-import endSoundPath from "/sound end.mp3";   // Use default import for paths
+import endSoundPath from "/sound end.mp3";   
 
 export default function ConfirmationWindow() {
 
@@ -98,7 +98,6 @@ export default function ConfirmationWindow() {
         }, 1000);
     }
 
-
     function tick_sound_stop() {
         if (ticking_sound_interval.current) {
             clearInterval(ticking_sound_interval.current);
@@ -145,7 +144,6 @@ export default function ConfirmationWindow() {
         // Dependencies: Start/stop timer based on these flags
     }, [initialSetupDone, isClosing, stopped]);
 
-
     function shutdown() {
         if (isClosing) return; // Prevent shutdown if already closing
 
@@ -189,7 +187,7 @@ export default function ConfirmationWindow() {
     }
 
     return (
-        <div className="h-screen w-screen flex justify-center items-center flex-col bg-gray-800 text-white"> {/* Example background/text */}
+        <div className="h-screen w-screen flex justify-center items-center flex-col bg-gray-800/80 text-white"> {/* Example background/text */}
             <h1 className="font-black text-5xl font-title text-center mb-4">
                 Warning!
             </h1>

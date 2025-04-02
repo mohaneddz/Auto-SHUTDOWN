@@ -18,7 +18,7 @@ export default function Modes(): JSX.Element {
     const [idleMinutes, setIdleMinutes] = useState<number>(DEFAULT_IDLE_MINUTES);
     const [scheduleOff, setScheduleOff] = useState<boolean>(false);
     const [scheduleTime, setScheduleTime] = useState<string>(defaultShutdownTime);
-    const [timerOff, setTimerOff] = useState<boolean>(true);
+    const [timer, settimer] = useState<boolean>(true);
     const [timerHours, setTimerHours] = useState<number>(0);
     const [timerMinutes, setTimerMinutes] = useState<number>(DEFAULT_TIMER_MINUTES);
     const [loading, setLoading] = useState<boolean>(true);
@@ -43,16 +43,18 @@ export default function Modes(): JSX.Element {
                     idleMinutesSetting,
                     scheduleOffSetting,
                     scheduleTimeSetting,
-                    timerOffSetting,
+                    timerSetting,
                     timerHoursSetting,
                     timerMinutesSetting,
                 ] = await Promise.all([
                     storeInstance.get<{ idle: boolean }>('idle'),
                     storeInstance.get<{ idleHours: number }>('idleHours'),
                     storeInstance.get<{ idleMinutes: number }>('idleMinutes'),
+                    
                     storeInstance.get<{ scheduleOff: boolean }>('scheduleOff'),
                     storeInstance.get<{ scheduleTime: string }>('scheduleTime'),
-                    storeInstance.get<{ timerOff: boolean }>('timerOff'),
+
+                    storeInstance.get<{ timer: boolean }>('timer'),
                     storeInstance.get<{ timerHours: number }>('timerHours'),
                     storeInstance.get<{ timerMinutes: number }>('timerMinutes'),
                 ]);
@@ -62,7 +64,7 @@ export default function Modes(): JSX.Element {
                 setIdleMinutes(idleMinutesSetting?.idleMinutes ?? DEFAULT_IDLE_MINUTES);
                 setScheduleOff(scheduleOffSetting?.scheduleOff ?? false);
                 setScheduleTime(scheduleTimeSetting?.scheduleTime ?? defaultShutdownTime);
-                setTimerOff(timerOffSetting?.timerOff ?? true);
+                settimer(timerSetting?.timer ?? true);
                 setTimerHours(timerHoursSetting?.timerHours ?? 0);
                 setTimerMinutes(timerMinutesSetting?.timerMinutes ?? DEFAULT_TIMER_MINUTES);
             } catch (error) {
@@ -88,7 +90,7 @@ export default function Modes(): JSX.Element {
             idleMinutes,
             scheduleOff,
             scheduleTime,
-            timerOff,
+            timer,
             timerHours,
             timerMinutes,
         });
@@ -99,7 +101,7 @@ export default function Modes(): JSX.Element {
                 store.set('idleMinutes', { idleMinutes }),
                 store.set('scheduleOff', { scheduleOff }),
                 store.set('scheduleTime', { scheduleTime }),
-                store.set('timerOff', { timerOff }),
+                store.set('timer', { timer }),
                 store.set('timerHours', { timerHours }),
                 store.set('timerMinutes', { timerMinutes }),
             ]);
@@ -285,11 +287,11 @@ export default function Modes(): JSX.Element {
                             id="timerCheck"
                             type="checkbox"
                             className="w-6 h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
-                            checked={timerOff}
-                            onChange={(e) => setTimerOff(e.target.checked)}
+                            checked={timer}
+                            onChange={(e) => settimer(e.target.checked)}
                         />
 
-                        <label htmlFor="timerHoursInput" className={`text-xl font-button ${!timerOff ? 'text-gray-disabled' : 'text-gray-400'}`}>  Countdown Timer</label>
+                        <label htmlFor="timerHoursInput" className={`text-xl font-button ${!timer ? 'text-gray-disabled' : 'text-gray-400'}`}>  Countdown Timer</label>
                         <div className="justify-self-end space-x-4 flex items-center">
                             <div className="relative">
                                 <input
@@ -298,34 +300,34 @@ export default function Modes(): JSX.Element {
                                     placeholder="H"
                                     min={0}
                                     max={23}
-                                    value={timerOff ? timerHours : ""}
-                                    className={`input-no-spinner w-14 h-8 text-center appearance-none border-2 rounded-md focus:outline-none pr-6 ${!timerOff ? 'border-gray-500 text-gray-600 bg-gray-700' : 'border-emerald-500 text-white'}`}
+                                    value={timer ? timerHours : ""}
+                                    className={`input-no-spinner w-14 h-8 text-center appearance-none border-2 rounded-md focus:outline-none pr-6 ${!timer ? 'border-gray-500 text-gray-600 bg-gray-700' : 'border-emerald-500 text-white'}`}
                                     onChange={(e) => handleNumberChange(e, setTimerHours, 23)}
-                                    disabled={!timerOff}
+                                    disabled={!timer}
                                 />
 
                                 <div className="absolute right-1 top-0 h-full flex flex-col justify-center">
                                     <button
                                         type="button"
-                                        className={`focus:outline-none h-1/2 flex items-center ${!timerOff ? 'cursor-not-allowed' : ''}`}
+                                        className={`focus:outline-none h-1/2 flex items-center ${!timer ? 'cursor-not-allowed' : ''}`}
                                         onClick={() => incrementTimerHour(timerHours, 1)}
-                                        disabled={!timerOff}
+                                        disabled={!timer}
                                         aria-label="Increase timer hours"
                                     >
-                                        <IconChevronUp size={16} className={!timerOff ? 'text-gray-500' : 'text-emerald-500'} />
+                                        <IconChevronUp size={16} className={!timer ? 'text-gray-500' : 'text-emerald-500'} />
                                     </button>
                                     <button
                                         type="button"
-                                        className={`focus:outline-none h-1/2 flex items-center ${!timerOff ? 'cursor-not-allowed' : ''}`}
+                                        className={`focus:outline-none h-1/2 flex items-center ${!timer ? 'cursor-not-allowed' : ''}`}
                                         onClick={() => decrementTimerHour(timerHours, -1)}
-                                        disabled={!timerOff}
+                                        disabled={!timer}
                                         aria-label="Decrease timer hours"
                                     >
-                                        <IconChevronDown size={16} className={!timerOff ? 'text-gray-500' : 'text-emerald-500'} />
+                                        <IconChevronDown size={16} className={!timer ? 'text-gray-500' : 'text-emerald-500'} />
                                     </button>
                                 </div>
                             </div>
-                            <span className={`font-bold ${!timerOff ? 'text-gray-600' : 'text-white'}`}>:</span>
+                            <span className={`font-bold ${!timer ? 'text-gray-600' : 'text-white'}`}>:</span>
                             <div className="relative">
                                 <input
                                     id="timerMinutesInput"
@@ -333,29 +335,29 @@ export default function Modes(): JSX.Element {
                                     placeholder="M"
                                     min={0}
                                     max={59}
-                                    value={timerOff ? timerMinutes : ""}
-                                    className={`input-no-spinner w-14 h-8 text-center appearance-none border-2 rounded-md focus:outline-none pr-6 ${!timerOff ? 'border-gray-500 text-gray-600 bg-gray-700' : 'border-emerald-500 text-white'}`}
+                                    value={timer ? timerMinutes : ""}
+                                    className={`input-no-spinner w-14 h-8 text-center appearance-none border-2 rounded-md focus:outline-none pr-6 ${!timer ? 'border-gray-500 text-gray-600 bg-gray-700' : 'border-emerald-500 text-white'}`}
                                     onChange={(e) => handleNumberChange(e, setTimerMinutes, 59)}
-                                    disabled={!timerOff}
+                                    disabled={!timer}
                                 />
                                 <div className="absolute right-1 top-0 h-full flex flex-col justify-center">
                                     <button
                                         type="button"
-                                        className={`focus:outline-none h-1/2 flex items-center ${!timerOff ? 'cursor-not-allowed' : ''}`}
+                                        className={`focus:outline-none h-1/2 flex items-center ${!timer ? 'cursor-not-allowed' : ''}`}
                                         onClick={() => incrementTimerMinute(timerMinutes, 1)}
-                                        disabled={!timerOff}
+                                        disabled={!timer}
                                         aria-label="Increase timer minutes"
                                     >
-                                        <IconChevronUp size={16} className={!timerOff ? 'text-gray-500' : 'text-emerald-500'} />
+                                        <IconChevronUp size={16} className={!timer ? 'text-gray-500' : 'text-emerald-500'} />
                                     </button>
                                     <button
                                         type="button"
-                                        className={`focus:outline-none h-1/2 flex items-center ${!timerOff ? 'cursor-not-allowed' : ''}`}
+                                        className={`focus:outline-none h-1/2 flex items-center ${!timer ? 'cursor-not-allowed' : ''}`}
                                         onClick={() => decrementTimerMinute(timerMinutes, -1)}
-                                        disabled={!timerOff}
+                                        disabled={!timer}
                                         aria-label="Decrease timer minutes"
                                     >
-                                        <IconChevronDown size={16} className={!timerOff ? 'text-gray-500' : 'text-emerald-500'} />
+                                        <IconChevronDown size={16} className={!timer ? 'text-gray-500' : 'text-emerald-500'} />
                                     </button>
                                 </div>
                             </div>

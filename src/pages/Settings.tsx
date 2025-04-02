@@ -10,6 +10,9 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { initStore } from '../lib/store';
 
+import { unregisterAll} from '@tauri-apps/plugin-global-shortcut';
+import { regGlobal } from '../main';
+
 // const tray = await TrayIcon.new({});
 
 export default function Settings(): JSX.Element {
@@ -50,7 +53,7 @@ export default function Settings(): JSX.Element {
         const newWidth = Math.round(width * viewScale);
         const newHeight = Math.round(height * viewScale);
 
-        if(viewScale !== 1) 
+        if (viewScale !== 1)
             await appWindow.setSize(new PhysicalSize(newWidth, newHeight));
     }
 
@@ -130,11 +133,16 @@ export default function Settings(): JSX.Element {
 
             await store.save();
 
-            console.log('Settings Saved Successfully.');
+            // console.log('Settings Saved Successfully.');
+            
+            await unregisterAll();
+            if (globalShortcuts) {
+                regGlobal();
+            } else {
+                // console.log("Global shortcuts disabled.");
+            }
+            
             window.location.reload();
-
-
-
         } catch (error) {
             console.error("Error saving settings:", error);
         }

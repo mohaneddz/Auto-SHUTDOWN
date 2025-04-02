@@ -15,6 +15,8 @@
 
 		"core:window:allow-start-dragging",
 		"core:window:allow-set-skip-taskbar",
+		"core:window:allow-unminimize",
+		"core:window:allow-set-focus",
 
 		"core:window:allow-set-size",
 
@@ -32,7 +34,13 @@
 		"core:window:allow-internal-toggle-maximize",
 
 		"core:webview:allow-create-webview-window",
-		"core:webview:allow-create-webview"
+		"core:webview:allow-create-webview",
+
+		"global-shortcut:allow-is-registered",
+		"global-shortcut:allow-register",
+		"global-shortcut:allow-register-all",
+		"global-shortcut:allow-unregister",
+		"global-shortcut:allow-unregister-all"
 
 	]
 }
