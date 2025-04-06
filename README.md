@@ -54,6 +54,12 @@ Auto-Shutdown is designed to be powerful yet unobtrusive. Here's a closer look a
 *   **Adjustable View Scale:** While respecting system scaling, the UI elements are designed to be clear and readable. *(Future enhancement: potentially add explicit in-app zoom)*.
 *   **Graceful Shutdown Prompt:** The 60-second warning dialog (see screenshot above) ensures you're not caught off-guard and provides an easy way to cancel the pending action.
 
+## Installation 🌟
+
+- Simply click on the **releases** section, and download the latest version
+- Double click the executable ```.exe```
+- Done!
+
 ## Project Structure
 
 ```plaintext
