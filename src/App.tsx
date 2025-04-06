@@ -70,7 +70,7 @@ function App() {
 
     setInterval(() => {
       checkTime();
-    }, 1000);
+    }, 60000);
 
   }, []);
 

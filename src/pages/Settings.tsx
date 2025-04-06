@@ -122,7 +122,7 @@ export default function Settings(): JSX.Element {
             console.error("Store not initialized, cannot save.");
             return;
         }
-        console.log("Saving settings with values:", { viewScale, autoStart, systemTray, audio, globalShortcuts });
+        // console.log("Saving settings with values:", { viewScale, autoStart, systemTray, audio, globalShortcuts });
         try {
             resizeWindow();
             await store.set('viewScale', { viewScale });
@@ -149,62 +149,65 @@ export default function Settings(): JSX.Element {
     };
 
     return (
-        <div className=''>
-
-            <button onClick={goHome} title="Go Back Home">
+        <div className='max-w-full overflow-x-hidden'>
+            <button 
+                onClick={goHome} 
+                title="Go Back Home"
+                className="fixed h-max top-2 sm:top-3 md:top-8 left-2 sm:left-3 md:left-8 z-10"
+            >
                 <IconArrowBackUp
-                    size={48}
-                    className="absolute top-3 md:top-8 left-3 md:left-8 w-12 md:w-16 h-12 md:h-16 p-2 text-bglight/70 bg-slate-500 rounded-full hover:scale-105 active:scale-95 transition-transform duration-200 cursor-pointer"
+                    size={36}
+                    className="w-12 h-12 sm:w-12 sm:h-12 md:w-16 md:h-16 p-2 text-bglight/70 bg-slate-500 rounded-full hover:scale-105 active:scale-95 transition-transform duration-200 cursor-pointer"
                 />
             </button>
 
-            <h1 className="font-black text-5xl font-title text-center pt-8 pb-4">Settings</h1>
+            <h1 className="font-black text-3xl sm:text-4xl md:text-5xl font-title text-center pt-6 sm:pt-8 pb-2 sm:pb-4">Settings</h1>
 
             {loading && <div className="text-center text-white py-10">Loading settings...</div>}
 
             {!loading && (
                 <>
                     <div
-                        className="grid bg-accept/10 w-[95vw] max-w-2xl rounded-xl shadow-lg mx-auto my-8 px-8 py-8 space-y-6 items-center"
+                        className="grid bg-accept/10 w-[92%] sm:w-[85%] max-w-2xl rounded-xl shadow-lg mx-auto my-4 sm:my-6 md:my-8 px-4 sm:px-6 md:px-8 py-6 sm:py-8 gap-y-4 sm:gap-y-6 items-center"
                         style={{ gridTemplateColumns: "1fr auto" }}
                     >
-                        <label htmlFor="autoStartCheck" className="text-white text-2xl font-button">Auto-Start</label>
+                        <label htmlFor="autoStartCheck" className="text-white text-lg sm:text-xl md:text-2xl font-button">Auto-Start</label>
                         <input
                             id="autoStartCheck"
                             type="checkbox"
-                            className="w-6 h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
+                            className="w-5 h-5 sm:w-6 sm:h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
                             checked={autoStart}
                             onChange={(e) => setAutoStart(e.target.checked)}
                         />
 
-                        <label htmlFor="systemTrayCheck" className="text-white text-2xl font-button">System Tray</label>
+                        <label htmlFor="systemTrayCheck" className="text-white text-lg sm:text-xl md:text-2xl font-button">System Tray</label>
                         <input
                             id="systemTrayCheck"
                             type="checkbox"
-                            className="w-6 h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
+                            className="w-5 h-5 sm:w-6 sm:h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
                             checked={systemTray}
                             onChange={(e) => setSystemTray(e.target.checked)}
                         />
 
-                        <label htmlFor="audioCheck" className="text-white text-2xl font-button">Audio</label>
+                        <label htmlFor="audioCheck" className="text-white text-lg sm:text-xl md:text-2xl font-button">Audio</label>
                         <input
                             id="audioCheck"
                             type="checkbox"
-                            className="w-6 h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
+                            className="w-5 h-5 sm:w-6 sm:h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
                             checked={audio}
                             onChange={(e) => setAudio(e.target.checked)}
                         />
 
-                        <label htmlFor="shortcutsCheck" className="text-white text-2xl font-button">Global Shortcuts</label>
+                        <label htmlFor="shortcutsCheck" className="text-white text-lg sm:text-xl md:text-2xl font-button">Global Shortcuts</label>
                         <input
                             id="shortcutsCheck"
                             type="checkbox"
-                            className="w-6 h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
+                            className="w-5 h-5 sm:w-6 sm:h-6 justify-self-end appearance-none border-2 border-emerald-500 rounded-md checked:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300 cursor-pointer"
                             checked={globalShortcuts}
                             onChange={(e) => setGlobalShortcuts(e.target.checked)}
                         />
 
-                        <label htmlFor="viewScaleInput" className="text-white text-2xl font-button">View Scale</label>
+                        <label htmlFor="viewScaleInput" className="text-white text-lg sm:text-xl md:text-2xl font-button">View Scale</label>
                         <div className="relative justify-self-end flex items-center">
                             <input
                                 id="viewScaleInput"
@@ -213,7 +216,7 @@ export default function Settings(): JSX.Element {
                                 min={0.5}
                                 max={1.5}
                                 value={viewScale}
-                                className={`input-no-spinner w-16 h-8 text-center appearance-none border-2 rounded-md focus:outline-none pr-6 ${viewScale >= 0.5 ? 'border-emerald-500 text-white' : 'border-gray-500 text-gray-600'}`}
+                                className={`input-no-spinner w-14 sm:w-16 h-7 sm:h-8 text-center appearance-none border-2 rounded-md focus:outline-none pr-6 ${viewScale >= 0.5 ? 'border-emerald-500 text-white' : 'border-gray-500 text-gray-600'}`}
                                 onChange={(e) => {
                                     const val = parseFloat(e.target.value);
                                     if (!isNaN(val)) {
@@ -230,7 +233,7 @@ export default function Settings(): JSX.Element {
                                     onClick={incrementScale}
                                     aria-label="Increase view scale"
                                 >
-                                    <IconChevronUp size={16} className="text-emerald-500" />
+                                    <IconChevronUp size={14} className="text-emerald-500" />
                                 </button>
                                 <button
                                     type="button"
@@ -238,12 +241,12 @@ export default function Settings(): JSX.Element {
                                     onClick={decrementScale}
                                     aria-label="Decrease view scale"
                                 >
-                                    <IconChevronDown size={16} className="text-emerald-500" />
+                                    <IconChevronDown size={14} className="text-emerald-500" />
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-center w-[95vw] max-w-2xl mx-auto items-center pb-8">
+                    <div className="flex justify-center w-[92%] sm:w-[85%] max-w-2xl mx-auto items-center pb-6 sm:pb-8">
                         <Button onClick={saveStore} text='Save' bg="bg-unique" bgHover='hover:bg-unique-light' />
                     </div>
                 </>

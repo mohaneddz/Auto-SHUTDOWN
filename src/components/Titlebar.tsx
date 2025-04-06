@@ -58,7 +58,7 @@ export default function Titlebar() {
     };
 
     return (
-        <div data-tauri-drag-region className="titlebar">
+        <div data-tauri-drag-region className="titlebar -z-20">
 
             <button onClick={() => appWindow.minimize()} className="titlebar-button" id="titlebar-minimize">
                 <img src="https://api.iconify.design/mdi:window-minimize.svg" alt="minimize" />

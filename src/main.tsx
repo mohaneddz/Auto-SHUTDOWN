@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { HashRouter as Router } from 'react-router-dom';
+import { PhysicalSize } from "@tauri-apps/api/window";
 
 import { TrayIcon } from '@tauri-apps/api/tray';
 import { defaultWindowIcon } from '@tauri-apps/api/app';
@@ -21,7 +22,7 @@ import { SHORTCUT_ENABLE, SHORTCUT_DISABLE, SHORTCUT_SHOW } from './lib/constant
 const debounceTimes: Record<string, number> = {};
 const DEBOUNCE_DELAY = 300;
 
-let store:any = null;
+let store: any = null;
 
 function debounce(shortcut: string, func: () => void) {
     const now = performance.now();
@@ -80,7 +81,6 @@ export async function regGlobal() {
     }
 }
 
-
 // async function handleEnableShortcut() {
 //     debounce(SHORTCUT_ENABLE, async () => { 
 //         try {
@@ -106,6 +106,7 @@ export async function regGlobal() {
 // }
 
 // --- Main Application Initialization ---
+
 async function initializeApp() {
     // Only run initialization once per page load
     store = await initStore()
@@ -115,8 +116,20 @@ async function initializeApp() {
         return;
     }
     // console.log("Starting App Initialization...");
+    let newWidth = 800 // Default width
+    let newHeight = 1080 // Default height
 
     const appWindow = getCurrentWindow();
+
+    if (appWindow.label.includes("confirmation")) {
+        newWidth = await store.get("confirmationWidth") || 800;
+        newHeight = await store.get("confirmationHeight") || 1080;
+    } else {
+        newWidth = await store.get("width") || 800;
+        newHeight = await store.get("height") || 1080;
+    }
+
+    await appWindow.setSize(new PhysicalSize(newWidth, newHeight));
 
     // Skip setup for special windows (e.g., confirmation dialogs)
     if (appWindow.label.includes("confirmation")) {
@@ -202,30 +215,44 @@ async function initializeApp() {
 
 
             const iconResult = await defaultWindowIcon();
-        const options: CustomTrayIconOptions = {
-            tooltip: 'If you forgot to shut it down, we\'ll do for you :)',
-            menu,
-            menuOnLeftClick: false,
-            action: async (event: any) => {
-                if (event.type === 'Click' && event.button === "Left") {
-                    await appWindow.show();
-                    await appWindow.setFocus();
-                    await appWindow.setSkipTaskbar(false);
-                }
-            },
-            icon: iconResult,
-        };
-        trayRef = await TrayIcon.new(options);
-    } catch (error) {
-        console.error("Failed during tray icon setup:", error);
-    }
+            const options: CustomTrayIconOptions = {
+                tooltip: 'If you forgot to shut it down, we\'ll do for you :)',
+                menu,
+                menuOnLeftClick: false,
+                action: async (event: any) => {
+                    if (event.type === 'Click' && event.button === "Left") {
+                        await appWindow.show();
+                        await appWindow.setFocus();
+                        await appWindow.setSkipTaskbar(false);
+                    }
+                },
+                icon: iconResult,
+            };
+            trayRef = await TrayIcon.new(options);
+        } catch (error) {
+            console.error("Failed during tray icon setup:", error);
+        }
 
     }
 
     if (registrationSuccess) {
+        // Check if minimize to tray is enabled
+        try {
+            const minimizeToTray = await store.get("minimizeToTray") || false;
+            if (minimizeToTray) {
+                // Start minimized to system tray
+                await appWindow.hide();
+                await appWindow.setSkipTaskbar(true);
+                // console.log("App started minimized to system tray");
+            }
+        } catch (error) {
+            // console.error("Error checking 'minimizeToTray' setting:", error);
+        }
+
         appInitializationComplete = true;
     }
 }
+
 window.addEventListener("beforeunload", () => {
 
     if (trayRef) {
@@ -234,6 +261,7 @@ window.addEventListener("beforeunload", () => {
     }
 
 });
+
 // --- Application Cleanup Logic ---
 window.addEventListener("beforeunload", async () => {
 
@@ -243,6 +271,26 @@ window.addEventListener("beforeunload", async () => {
 
 
     appInitializationComplete = false;
+});
+
+window.addEventListener("resize", async () => {
+    const store = await initStore();
+    while (!store);
+    // check if this is the confirmation window 
+    const appWindow = getCurrentWindow();
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    if (appWindow.label.includes("confirmation")) {
+        store.set("confirmationWidth", width);
+        store.set("onfirmationHeight", height);
+    } else {
+        store.set("width", width);
+        store.set("height", height);
+    }
+
+    console.log("Window resized:", width, height);
 });
 
 // --- Start the Application ---

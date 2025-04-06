@@ -187,26 +187,26 @@ export default function ConfirmationWindow() {
     }
 
     return (
-        <div className="h-screen w-screen flex justify-center items-center flex-col bg-gray-800/80 text-white"> {/* Example background/text */}
-            <h1 className="font-black text-5xl font-title text-center mb-4">
+        <div className="h-screen w-screen flex justify-center items-center flex-col bg-gray-800/80 text-white">
+            <h1 className="font-black text-3xl sm:text-4xl md:text-5xl font-title text-center mb-2 sm:mb-4">
                 Warning!
             </h1>
-            <div className="flex space-y-4 flex-col m-8 justify-center items-center w-[95vw] max-w-2xl p-6 bg-gray-700 rounded-lg shadow-md"> {/* Contrasting card */}
-                <div className="flex flex-col justify-center w-full items-center ">
-                    <div className='text-2xl m-8'>
+            <div className="flex space-y-3 sm:space-y-4 flex-col mx-3 sm:m-6 md:m-8 justify-center items-center w-[95vw] max-w-2xl p-3 sm:p-4 md:p-6 bg-gray-700 rounded-lg shadow-md">
+                <div className="flex flex-col justify-center w-full items-center">
+                    <div className='text-xl sm:text-2xl my-4 sm:my-6 md:m-8 text-center px-2'>
                         {isClosing
                             ? "Closing..."
-                            : (stopped ? "Shutdown Initiated" : `${count} Seconds before Shutdown`) // Show appropriate message
+                            : (stopped ? "Shutdown Initiated" : `${count} Seconds before Shutdown`)
                         }
                     </div>
-                    <div className="grid gap-8 grid-cols-1 md:grid-cols-2 w-full">
+                    <div className="grid gap-3 sm:gap-4 md:gap-8 grid-cols-1 sm:grid-cols-2 w-full">
                         <button
                             onClick={close}
                             disabled={isClosing}
                             className={`
-                                font-bold py-3 px-6 rounded text-lg w-full
+                                font-bold py-2 sm:py-3 px-4 sm:px-6 rounded text-base sm:text-lg w-full
                                 ${isClosing
-                                    ? 'bg-gray-500 text-gray-300 cursor-not-allowed' // Adjusted disabled style
+                                    ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
                                     : 'bg-red-600 hover:bg-red-700 text-white'
                                 }
                                 transition-colors duration-200 ease-in-out
@@ -216,15 +216,15 @@ export default function ConfirmationWindow() {
                         </button>
                         <button
                             onClick={shutdown}
-                            disabled={isClosing} // Also disable shutdown if closing initiated
+                            disabled={isClosing}
                             className={`
-                                font-bold py-3 px-6 rounded text-lg w-full
+                                font-bold py-2 sm:py-3 px-4 sm:px-6 rounded text-base sm:text-lg w-full
                                 ${isClosing
-                                    ? 'bg-gray-500 text-gray-300 cursor-not-allowed' // Adjusted disabled style
+                                    ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
                                     : 'bg-emerald-500 hover:bg-emerald-700 text-white'
                                 }
                                 transition-colors duration-200 ease-in-out
-                             `}
+                            `}
                         >
                             Shutdown Now
                         </button>

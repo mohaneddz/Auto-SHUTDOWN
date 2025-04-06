@@ -92,7 +92,7 @@ export default function Home(): JSX.Element {
         <div className="h-screen w-screen flex justify-center items-center flex-col">
 
           <button onClick={goSettings}>
-            <IconSettingsFilled size={48} className="top-3 md:top-8 left-3 md:left-8 absolute w-12 md:w-16 h-12 md:h-16 hover:scale-105 active:scale-95 transition-transform text-bglighter duration-200" />
+            <IconSettingsFilled size={48} className="hover:cursor-pointer top-3 md:top-8 left-3 md:left-8 absolute w-12 md:w-16 h-12 md:h-16 hover:scale-105 active:scale-95 transition-transform text-bglighter duration-200" />
           </button>
 
           <h1 className={"font-black text-3xl sm:text-5xl font-title text-center" + (enabled ? " " : " text-gray-600 stroke-1")} >
